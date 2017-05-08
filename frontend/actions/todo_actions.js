@@ -11,4 +11,4 @@ const receiveTodo = todo => ({
   todo
 });
 
-export {receiveTodo, receiveTodos};
+export { receiveTodo, receiveTodos };
