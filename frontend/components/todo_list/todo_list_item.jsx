@@ -9,8 +9,6 @@ class TodoListItem extends React.Component {
   handleRemove(e) {
     e.preventDefault();
     this.props.removeTodo(this.props.todo.id);
-    console.log("should have been removed");
-    console.log(this.props.todo.id);
   }
 
   render() {

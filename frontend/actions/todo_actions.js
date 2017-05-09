@@ -8,7 +8,6 @@ const receiveTodos = todos => ({
 });
 
 const receiveTodo = todo => {
-  console.log("actions");
   return {
     type: RECEIVE_TODO,
     todo

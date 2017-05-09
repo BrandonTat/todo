@@ -6,7 +6,9 @@ class TodoForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: ""
+      title: "",
+      body: "",
+      status: false
     };
     this.submit = this.submit.bind(this);
   }
@@ -16,12 +18,10 @@ class TodoForm extends React.Component {
   }
 
   submit(e) {
-    console.log("pressed submit");
     e.preventDefault();
     const todo = merge({}, this.state, { id: uniqueId()});
     this.props.receiveTodo(todo);
-    this.setState({title: ""});
-    console.log("done");
+    this.setState({title: "", body: "", status: false});
   }
 
   render () {
@@ -29,6 +29,10 @@ class TodoForm extends React.Component {
       <form>
         <span>Title: </span>
         <input onChange={this.linkState('title')} value={this.state.title}></input>
+        <br />
+        <span>Body: </span>
+        <textarea onChange={this.linkState('body')} value={this.state.body}></textarea>
+        <br />
         <button onClick={this.submit}>Submit</button>
       </form>
     );
