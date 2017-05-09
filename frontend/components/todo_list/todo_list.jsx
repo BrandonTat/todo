@@ -5,7 +5,8 @@ import TodoForm from './todo_form';
 const TodoList = ({ todos, receiveTodo, removeTodo}) => (
   <div>
     <ul>
-      {todos.map((todo, idx) => <TodoListItem key={idx} todo={todo} removeTodo={removeTodo}/>)}
+      {todos.map((todo, idx) => <TodoListItem key={idx} todo={todo}
+      removeTodo={removeTodo} receiveTodo={receiveTodo}/>)}
     </ul>
     <br />
     <TodoForm receiveTodo={receiveTodo}/>

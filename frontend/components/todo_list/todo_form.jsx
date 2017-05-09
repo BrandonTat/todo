@@ -8,7 +8,7 @@ class TodoForm extends React.Component {
     this.state = {
       title: "",
       body: "",
-      status: false
+      done: false
     };
     this.submit = this.submit.bind(this);
   }
@@ -21,7 +21,7 @@ class TodoForm extends React.Component {
     e.preventDefault();
     const todo = merge({}, this.state, { id: uniqueId()});
     this.props.receiveTodo(todo);
-    this.setState({title: "", body: "", status: false});
+    this.setState({title: "", body: "", done: false});
   }
 
   render () {

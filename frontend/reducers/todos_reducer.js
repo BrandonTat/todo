@@ -18,7 +18,6 @@ const initialState = {
 
 const todosReducer = (state = initialState, action) => {
   Object.freeze(state);
-  console.log("reducer");
   let newState;
   switch(action.type) {
     case RECEIVE_TODOS:
