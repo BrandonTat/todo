@@ -29438,11 +29438,14 @@ var _root = __webpack_require__(127);
 
 var _root2 = _interopRequireDefault(_root);
 
+var _todo_api_util = __webpack_require__(331);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 document.addEventListener("DOMContentLoaded", function () {
   var store = (0, _store2.default)();
   window.store = store;
+  window.fetchTodos = _todo_api_util.fetchTodos;
   _reactDom2.default.render(_react2.default.createElement(_root2.default, { store: store }), document.getElementById('content'));
 });
 
@@ -44879,6 +44882,20 @@ function symbolObservablePonyfill(root) {
 	}
 
 	return result;
+};
+
+/***/ }),
+/* 331 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var fetchTodos = exports.fetchTodos = function fetchTodos() {
+  return $.ajax({ method: 'GET', url: '/api/todos' });
 };
 
 /***/ })
