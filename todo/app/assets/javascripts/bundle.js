@@ -7278,7 +7278,7 @@ if (process.env.NODE_ENV !== 'production' && typeof isCrushed.name === 'string' 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.fetchTodos = exports.removeTodo = exports.receiveTodo = exports.receiveTodos = exports.REMOVE_TODO = exports.RECEIVE_TODO = exports.RECEIVE_TODOS = undefined;
+exports.createTodo = exports.fetchTodos = exports.removeTodo = exports.receiveTodo = exports.receiveTodos = exports.REMOVE_TODO = exports.RECEIVE_TODO = exports.RECEIVE_TODOS = undefined;
 
 var _todo_api_util = __webpack_require__(331);
 
@@ -7318,7 +7318,21 @@ var fetchTodos = exports.fetchTodos = function fetchTodos() {
   };
 };
 
+var createTodo = exports.createTodo = function createTodo(todo) {
+  return function (dispatch) {
+    return TodoAPIUtil.createTodo(todo).then(function (todo) {
+      return dispatch(receiveTodo(todo));
+    });
+  };
+};
+
 window.fetchTodos = fetchTodos;
+
+// export const createTodo = todo => dispatch => (
+//   TodoAPIUtil.createTodo(todo)
+//   .then(todo => { dispatch(receiveTodo(todo)); dispatch(clearErrors())},
+//   err => dispatch(receiveErrors(err.responseJSON)))
+// );
 
 /***/ }),
 /* 70 */
@@ -29110,10 +29124,13 @@ var TodoForm = function (_React$Component) {
   }, {
     key: 'submit',
     value: function submit(e) {
+      var _this3 = this;
+
       e.preventDefault();
       var todo = (0, _lodash.merge)({}, this.state, { id: (0, _util.uniqueId)() });
-      this.props.receiveTodo(todo);
-      this.setState({ title: "", body: "", done: false });
+      this.props.createTodo({ todo: todo }).then(function () {
+        return _this3.setState({ title: "", body: "", done: false });
+      });
     }
   }, {
     key: 'render',
@@ -29212,7 +29229,7 @@ var TodoList = function (_React$Component) {
     value: function render() {
       var _props = this.props,
           todos = _props.todos,
-          receiveTodo = _props.receiveTodo,
+          createTodo = _props.createTodo,
           removeTodo = _props.removeTodo;
 
       return _react2.default.createElement(
@@ -29223,11 +29240,11 @@ var TodoList = function (_React$Component) {
           null,
           todos.map(function (todo, idx) {
             return _react2.default.createElement(_todo_list_item2.default, { key: idx, todo: todo,
-              removeTodo: removeTodo, receiveTodo: receiveTodo });
+              removeTodo: removeTodo, createTodo: createTodo });
           })
         ),
         _react2.default.createElement('br', null),
-        _react2.default.createElement(_todo_form2.default, { receiveTodo: receiveTodo })
+        _react2.default.createElement(_todo_form2.default, { createTodo: createTodo })
       );
     }
   }]);
@@ -29268,8 +29285,8 @@ var mapStateToProps = function mapStateToProps(state) {
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
-    receiveTodo: function receiveTodo(todo) {
-      return dispatch((0, _todo_actions.receiveTodo)(todo));
+    createTodo: function createTodo(todo) {
+      return dispatch((0, _todo_actions.createTodo)(todo));
     },
     removeTodo: function removeTodo(todo) {
       return dispatch((0, _todo_actions.removeTodo)(todo));
@@ -44956,6 +44973,10 @@ Object.defineProperty(exports, "__esModule", {
 });
 var fetchTodos = exports.fetchTodos = function fetchTodos() {
   return $.ajax({ method: 'GET', url: '/api/todos' });
+};
+
+var createTodo = exports.createTodo = function createTodo(todo) {
+  return $.ajax({ method: 'POST', url: '/api/todos', data: todo });
 };
 
 /***/ }),
