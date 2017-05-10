@@ -23,7 +23,7 @@ class TodoList extends React.Component {
   }
 
   render() {
-    const { todos, createTodo, removeTodo } = this.props;
+    const { todos, createTodo, removeTodo, errors } = this.props;
     return (
       <div>
         <ul>
@@ -31,7 +31,7 @@ class TodoList extends React.Component {
           removeTodo={removeTodo} createTodo={createTodo}/>)}
         </ul>
         <br />
-        <TodoForm createTodo={createTodo}/>
+        <TodoForm createTodo={createTodo} errors={errors}/>
       </div>
     );
   }

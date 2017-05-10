@@ -1,6 +1,7 @@
 import React from 'react';
 import {uniqueId} from "../../util/util";
 import {merge} from 'lodash';
+import ErrorList from './error_list';
 
 class TodoForm extends React.Component {
   constructor(props) {
@@ -35,6 +36,7 @@ class TodoForm extends React.Component {
         <textarea onChange={this.linkState('body')} value={this.state.body}></textarea>
         <br />
         <button onClick={this.submit}>Submit</button>
+        <ErrorList errors={ this.props.errors } />
       </form>
     );
   }
